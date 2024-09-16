@@ -169,33 +169,31 @@ line-height: 20px;
 <section class="container" id="section">
     <!-- title -->
 <h2  align="center" id="title" class="message-header">
-  <div  class="has-text-centered">whos is your sister</div>
+  <div  class="has-text-centered"></div>
     <p>
-        2024-01-28
+        2024-09-16
     </p>
 </h2>
 <!-- Content -->
         <div class="message-body">
-            <div id="mark"></div>
-          
-        </div>
-
-</section>
-
-
-
-
-<section class="container" id="section">
-    <!-- title -->
-<h2  align="center" id="title" class="message-header">
-  <div  class="has-text-centered">hello world</div>
-    <p>
-        2024-01-28
-    </p>
-</h2>
-<!-- Content -->
-        <div class="message-body">
-            <div id="mark"></div>
+            <div id="mark"><p>在 Rime 配置文件中，给键值对的值加引号的原因主要与 <strong>YAML（YAML Ain’t Markup Language）语法规则</strong>有关。</p>
+<p>在 YAML 中，字符串值<strong>不总是必须加引号</strong>，但是在某些情况下，加引号可以避免解析错误，确保 YAML 解析器能够正确识别字符串内容。下面是需要加引号的几种常见情况：</p>
+<h3 id="1-带有特殊字符或空格的字符串"><a href="#1-带有特殊字符或空格的字符串" class="headerlink" title="1. 带有特殊字符或空格的字符串"></a>1. <strong>带有特殊字符或空格</strong>的字符串</h3><p>如果字符串中包含空格、冒号、逗号、或特殊字符，YAML 解析器会有可能把它误认为其他类型的值（如数字、布尔值等），这时需要加引号。</p>
+<ul>
+<li><p><code>&quot;KaiTi&quot;</code> 包含字母，但有些字体名称可能包含空格或其他字符，例如 <code>&quot;Microsoft YaHei&quot;</code>，为了统一处理和避免潜在问题，通常会在字体名称周围加上引号。</p>
+<p><strong>示例</strong>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">style:</span></span><br><span class="line">  <span class="attr">font_face:</span> <span class="string">&quot;KaiTi&quot;</span>  <span class="comment"># 字体名加引号，避免解析器误解</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-避免解析为布尔值或数字"><a href="#2-避免解析为布尔值或数字" class="headerlink" title="2. 避免解析为布尔值或数字"></a>2. <strong>避免解析为布尔值或数字</strong></h3><p>如果某些值本身可能会被 YAML 解析器误认为布尔值或数字，加引号可以避免这种情况。</p>
+<ul>
+<li>例如，如果有一个字体名是 <code>True</code> 或 <code>False</code>，YAML 会把它解析为布尔值，而不是字符串：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">style:</span></span><br><span class="line">  <span class="attr">font_face:</span> <span class="string">&quot;True&quot;</span>  <span class="comment"># 不加引号时，YAML 可能将它解析为布尔值</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-YAML-关键字或特殊值"><a href="#3-YAML-关键字或特殊值" class="headerlink" title="3. YAML 关键字或特殊值"></a>3. <strong>YAML 关键字或特殊值</strong></h3><p>某些字符串（例如 <code>yes</code>, <code>no</code>, <code>null</code>，或者数字开头的内容）在 YAML 中有特殊含义，不加引号时可能会导致解析错误。例如 <code>12345</code> 会被解析成数字，而不是字符串。</p>
+<h3 id="结论："><a href="#结论：" class="headerlink" title="结论："></a>结论：</h3><ul>
+<li>在 <code>patch</code> 中为 <code>&quot;style/font_face&quot;</code> 指定值 <code>&quot;KaiTi&quot;</code> 加引号，主要是为了确保 YAML 解析器能正确地识别这是一个字符串，避免可能的误解析。</li>
+<li>尽管字体名不含特殊字符和空格时可以不加引号，但在 YAML 中，<strong>加引号是一种安全的通用做法</strong>，尤其当你希望确保它总是被解析为字符串类型时。</li>
+</ul>
+</div>
           
         </div>
 
