@@ -1,207 +1,168 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
 
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
   
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
   
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
-
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a></span><div id="menus"></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/21%20_%20%E6%B5%81%E9%87%8F%E5%9B%9E%E6%94%BE%EF%BC%9A%E4%BF%9D%E9%9A%9C%E4%B8%9A%E5%8A%A1%E6%8A%80%E6%9C%AF%E5%8D%87%E7%BA%A7%E7%9A%84%E7%A5%9E%E5%99%A8/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:28:58.355Z" title="Created 2025-05-18 20:28:58">2025-05-18</time></span></div><div class="content">...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/21%20_%20%E6%AF%8F%E4%B8%AA%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%83%BD%E5%BA%94%E8%AF%A5%E4%BA%86%E8%A7%A3%E7%9A%84%EF%BC%9A%E4%B8%AD%E7%BE%8E%E5%9C%A8%E6%94%AF%E4%BB%98%E6%8A%80%E6%9C%AF%E5%92%8C%E5%A4%A7%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%B7%AE%E5%BC%82/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:28:58.346Z" title="Created 2025-05-18 20:28:58">2025-05-18</time></span></div><div class="content"> 支付是很多互联网行业和产品不可或缺的一部分，我在支付领域工作了很多年，也积累了不少经验和教训，今天，我就来谈一个看起来比较宏大的话题：“中美在支付技术和大环境下的差异”，与你共同探讨一下支付领域的技术和生态，以及支付在美国和中国的差异性。希望这篇文章可以对你有一定的启发。 概况当我们谈支付系统的时候，一般会这样定义：一笔钱从甲方转移到乙方。这笔转移可能是商家和顾客间的货款交易，也可能是个人对个人的转账，支付系统就是让这笔交易或转账发生的系统。这中间可能是银行间的转账，也可能是一个虚拟的闭环系统，比如在支付宝、PayPal、甚至比特币系统中的价值转移。 用到支付的地方很多，比如传统的柜台、店家销售、电子商务和远程商务、账单支付、个人对个人（P2P）、公司对公司（B2B...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/21%20_%20%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E4%BB%8E%E8%82%A1%E4%BB%B7%E9%A2%84%E6%B5%8B%E4%BA%A7%E5%93%81%E7%9C%8B%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:28:58.327Z" title="Created 2025-05-18 20:28:58">2025-05-18</time></span></div><div class="content"> 你好，我是海丰。今天，我们借助一个股价预测产品，来学习回归算法常用的性能评估指标。 股票价格预测模型或者说算法不仅是金融界一项重要的研究课题，也经常和我们的直接经济利益相关，因此一直备受关注。 为了能够准确预测股票未来的价格，很多公司和机构不断尝试开发了很多股票价格预测的模型。但是，对于用算法来进行股票价格的预测这件事情，市场上有两种不同的声音：有的人认为算法是可以预测股票的，并且用 LSTM 算法进行了很多验证；有的人认为股票走势是随机游走的，不论用什么模型预测结果都不可能准确。 不过，这节课，我可不打算和你深入讨论股票预测是否可以用算法实现。我们只会对股票预测模型的结果进行评估，让你知道回归模型的性能评估该用什么指标，以及具体怎么做。 回归算法的评估和分类算法的评估在底层逻辑上是一致的，都是为了找到真实标签和预测值之间的差异。只是对于分类算法来说，我们关注的是预测分类和实际分类是否相同，而对于回归算法来说，我们关注的是模型是否预测到了正确的数值。 比如，我们预测一只股票 10 天后的价格是 10 元，在对模型进行评估的时候，你只要看 10...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/test/" title="test">test</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:20:51.000Z" title="Created 2025-05-18 20:20:51">2025-05-18</time></span></div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/Deepseek_%E9%9C%B9%E9%9B%B3%E5%B8%83%E8%A2%8B%E6%88%8F_%E5%8F%B9%E5%B8%8C%E5%A5%87/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:20:34.799Z" title="Created 2025-05-18 20:20:34">2025-05-18</time></span></div><div class="content">针对你正在创作的霹雳同人穿越小说，我将结合封剑主叹希奇的角色特质与飞卢平台特点，设计一套系统化剧情规划方案：  一、核心矛盾设计 双重人格冲突  原主残留意识（追求剑道终极）与穿越者求生本能的对抗 设置「剑意共鸣值」系统：当主角行为偏离原主武道理念时，会削弱剑境修为 关键转折点：九轮天战役中被迫使出「剑法·无我」导致人格融合   命运修正困境  穿越自带的「因果律反噬」：每当改变原著角色死亡事件，会引发平行时空入侵 例：救下魔夜听剑后，触发《东离剑游纪》角色跨次元追杀     二、三幕式剧情框架▶ 第一阶段：剑境重构（30-50章）  核心事件：   觉醒「剑道推演系统」（可消耗震惊值模拟万界剑法） 在论剑海重现《侠菩提剑典》引发三教震动 改造「天剑老人」残魂为剑灵（伏笔：后期触发单锋剑魔线）   创新设定：  构建「剑界」概念：通过收集名剑残片解锁不同维度剑境 开发「剑气编程」能力：将霹雳武学转化为数据化招式    ▶...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/Deepseek_%E7%BD%91%E7%BB%9C%E6%96%87%E5%AD%A6%E8%A7%86%E8%A7%92%E9%80%89%E6%8B%A9/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:20:34.796Z" title="Created 2025-05-18 20:20:34">2025-05-18</time></span></div><div class="content">在文学创作特别是网络小说中，视角选择直接影响叙事张力和读者代入感。以下是玄幻创作中常用的视角类型及运用技巧，配有深度解析和经典案例：  一、基础视角体系1. 第一人称视角（”我”的视界） 特点：① 摄像机式限制视角② 心理活动直输③ 信息获取受角色认知局限 优势：▶ 强代入感（如《诡秘之主》克莱恩穿越初期的迷茫）▶ 悬疑氛围营造（《惊悚乐园》封不觉的推理独白） 缺陷：▶ 难以描写主角未知的情节线▶ 战斗场景容易陷入”自说自话” 创新变体：🔥 双重人格切换（主人格与心魔交替叙述）🔥 记忆闪回式（当前行动与前世记忆交织）  2. 第三人称有限视角（跟随单一角色） 特点：① 上帝视角与主角视角结合② 可描写主角五感接收的信息③ 保留部分全知解说空间 经典运用：▶ 《雪中悍刀行》徐凤年游历时的环境感知▶ 《凡人修仙传》韩立探查敌人修为时的谨慎评估 注意事项：🔔 禁止突然插入其他角色心理活动🔔 环境描写需符合角色认知水平  3. 第三人称全知视角（上帝模式） 特点：① 同时掌握多线情报② 自由切换时空维度③ 可插入世界观解说 高阶技巧：🔥...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/Deepseek_%E7%BD%91%E7%BB%9C%E6%96%87%E5%AD%A6%E6%89%93%E6%96%97%E6%95%99%E7%A8%8B/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:20:34.789Z" title="Created 2025-05-18 20:20:34">2025-05-18</time></span></div><div class="content">在玄幻网络小说中描写打斗场景，需兼顾动作张力、世界观呈现和人物性格塑造。以下是从专业创作角度梳理的实战指南，配合具体案例解析：  一、三维空间构建法则 环境维度   利用地形特征制造变量（如《雪中悍刀行》凌虚御剑时破碎的琉璃瓦） 自然元素交互（雷电劈中玄铁重剑引发电磁暴，参考《斗破苍穹》异火碰撞）   能量维度   气机锁定引发的空间褶皱（借鉴《牧神记》虚空涟漪描写） 境界压制产生的灵力真空带（如金丹期威压使炼气修士呼吸困难）   时间维度   燃血秘术加速主观时间（《完美世界》鲲鹏宝术的时间片段切割） 领域展开冻结客观时间（类似《诡秘之主》时之虫的时停效果）     二、动作描写进阶技巧 量化打击感   力量具象化：”拳风挤压空气形成三丈真空通道”（《龙族》言灵·青铜御座） 破坏量级标定：”余波震碎三十里外寒潭冰面”   多模态感知   听觉：”骨裂声如千年玄冰绽开三十六道裂纹” 嗅觉：”燃烧精血散发的铁锈味混合焦糊肉香” 触觉：”剑气掠过脖颈时汗毛倒伏的刺麻感”   武技差异化编码 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/Deepseek_%E7%BD%91%E7%BB%9C%E6%96%87%E5%AD%A6%E5%8F%A5%E9%95%BF%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5%E5%88%86%E6%9E%90/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:20:34.777Z" title="Created 2025-05-18 20:20:34">2025-05-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BD%91%E7%BB%9C%E6%96%87%E5%AD%A6/">网络文学</a></span></div><div class="content">网络文学的语言是否适合采用更短的平均句长，需要结合其传播媒介、受众特点和创作目标来分析。以下是分点论述：  1. 短句的适应性优势*  媒介特性：移动端阅读占主导（2023年数据显示78%网文通过手机阅读），短句能适配小屏幕的视觉呈现，减少单屏信息密度。 认知负荷：碎片化阅读场景中，15-20字&#x2F;句更符合瞬时记忆容量（心理学研究表明人类工作记忆平均处理7±2信息单元）。 叙事节奏：动作类&#x2F;快穿类网文普遍采用12-18字短句，与日更6000字的创作压力形成适配，例如《诡秘之主》平均句长19.3字。  2. 长句存在的必要性  类型差异：历史穿越文平均句长达27.5字（抽样统计），需承载典章制度等复杂信息；言情类环境描写常用25-35字长句构建氛围。 文体实验：2022年「知乎故事大赛」获奖作品出现意识流段落，单句最长达87字，显示平台对句式多样性的包容。  3....</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/Deepseek_%E7%9E%B3%E5%AD%94%E6%8F%8F%E5%86%99/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:20:34.766Z" title="Created 2025-05-18 20:20:34">2025-05-18</time></span></div><div class="content">在玄幻小说创作中，瞳孔描写是刻画人物特质、情绪波动和功法特性的重要手段。以下是分门别类的瞳孔描写方案，附带使用场景与进阶技巧：  一、种族特征型 妖族觉醒   “赤瞳深处浮现金色竖纹，如熔岩裂缝中游动的龙影”   “虹膜褪色成透明晶状体，三百六十度环状瞳孔倒映着四面八方的杀机”   魔族异变   “左眼化作黑洞漩涡，右眼坍缩成血十字星芒”   “睫毛结霜时瞳孔分裂成六边形冰晶阵列”   神裔血脉   “瞳孔边缘浮现古神铭文，每道笔画都流淌着液态金光”   “睁眼刹那双瞳化作日月同辉之象，睫毛颤动间昼夜交替”     二、功法运转型 秘术激发   “施展缩地成寸时，瞳孔扭曲成莫比乌斯环状”   “运起龟息功的瞬间，瞳孔扩散至整个眼球如同死鱼”   元素共鸣   “雷灵根觉醒时睫毛迸发电弧，瞳孔呈现闪电形焦痕”   “控水诀运转到极致，瞳孔泛起深海旋涡的靛蓝色”   神识扫描   “神识外放状态下，瞳孔分裂成复眼结构，每个六边形都映射不同维度” ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/Deepseek_%E6%88%98%E4%BA%89%E6%8F%8F%E5%86%99/" title="Untitled">Untitled</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T12:20:34.745Z" title="Created 2025-05-18 20:20:34">2025-05-18</time></span></div><div class="content">在网络玄幻小说中描写宗门战争，需融合战略博弈、功法特性与世界观底蕴，构建兼具史诗感与细节张力的立体战场。以下是系统化创作指南：  一、战前布局篇1. 势力矩阵构建 绘制「宗门战力九宫图」：12345| 顶级战力 | 中坚力量 | 新生代   ||----------|----------|----------|| 太上长老| 内门首座| 真传弟子|| 护宗神兽| 执法堂   | 外门天骄|| 镇派大阵| 灵傀军团| 药田童子|  2. 资源链分析 灵石储备：天阶宗门至少需3000万上品灵石启动护宗大阵 丹药配给：渡劫期修士人均消耗「九转回天丹」1瓶&#x2F;日 法器损耗：大规模符箓轰炸预计消耗黄阶符纸10万张&#x2F;时辰  3. 谍报暗战 安插卧底：炼丹房童子实为敌方「千面毒尊」伪装 信息误导：伪造护宗大阵能量节点分布图 心理战：提前三日让敌方听到《丧魂钟》的死亡倒计时   二、战争推演模型1....</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/18/21%20_%20%E6%B5%81%E9%87%8F%E5%9B%9E%E6%94%BE%EF%BC%9A%E4%BF%9D%E9%9A%9C%E4%B8%9A%E5%8A%A1%E6%8A%80%E6%9C%AF%E5%8D%87%E7%BA%A7%E7%9A%84%E7%A5%9E%E5%99%A8/" title="Untitled">Untitled</a><time datetime="2025-05-18T12:28:58.355Z" title="Created 2025-05-18 20:28:58">2025-05-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/18/21%20_%20%E6%AF%8F%E4%B8%AA%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%83%BD%E5%BA%94%E8%AF%A5%E4%BA%86%E8%A7%A3%E7%9A%84%EF%BC%9A%E4%B8%AD%E7%BE%8E%E5%9C%A8%E6%94%AF%E4%BB%98%E6%8A%80%E6%9C%AF%E5%92%8C%E5%A4%A7%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%B7%AE%E5%BC%82/" title="Untitled">Untitled</a><time datetime="2025-05-18T12:28:58.346Z" title="Created 2025-05-18 20:28:58">2025-05-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/18/21%20_%20%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E4%BB%8E%E8%82%A1%E4%BB%B7%E9%A2%84%E6%B5%8B%E4%BA%A7%E5%93%81%E7%9C%8B%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95%E5%B8%B8%E7%94%A8%E7%9A%84%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87/" title="Untitled">Untitled</a><time datetime="2025-05-18T12:28:58.327Z" title="Created 2025-05-18 20:28:58">2025-05-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/18/test/" title="test">test</a><time datetime="2025-05-18T12:20:51.000Z" title="Created 2025-05-18 20:20:51">2025-05-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/18/Deepseek_%E9%9C%B9%E9%9B%B3%E5%B8%83%E8%A2%8B%E6%88%8F_%E5%8F%B9%E5%B8%8C%E5%A5%87/" title="Untitled">Untitled</a><time datetime="2025-05-18T12:20:34.799Z" title="Created 2025-05-18 20:20:34">2025-05-18</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%96%87%E5%AD%A6/"><span class="card-category-list-name">网络文学</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
       
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/05/18/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-05-18T11:37:31.424Z" itemprop="datePublished">2025-05-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/05/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+    <ul class="card-archive-list">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              May 2025
+            </span>
+            <span class="card-archive-list-count">11</span>
+          </a>
+        </li>
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/05/18/hello-world/" data-id="cmatl393300001cuq73629fjh" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2025/05/18/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2025 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">11</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-05-18T12:29:31.735Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
